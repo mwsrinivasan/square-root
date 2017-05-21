@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+ <title>No title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script>
+  $(document).bind('mobileinit',function(){
+    $.mobile.pushStateEnabled = false;
+  });
+  </script>
+ <script> 
+	var rand, denom, root, numer, numers, numsgreater;
+
+	function flip(index){   
+	var chosen = numers[index];
+	var rightindex = 2 - numsgreater;
+	var moretxt = chosen + " / " + denom + " is ";
+	if (index == rightindex) moretxt+="the closest";
+	else moretxt+="wrong";
+	moretxt += "<br>" + Math.pow(chosen/denom,2);
+	document.getElementById("moretxt").innerHTML = moretxt;
+ }      
+	function doit()
+	{
+	rand = 10 + Math.floor(Math.random() * 100);
+	denom = 10 + Math.floor(Math.random() * 100);
+	root = Math.sqrt(rand);
+	numer;
+	numers = new Array(); 	
+	for (numer=0; numer/denom <= root; numer++);
+	numer--; // numer is the largest numerator that doesn't exceed the root (like "price is right")
+	numsgreater = Math.floor(Math.random() * 3);
+	numers[0] = numer - 2 + numsgreater;
+	numers[1] = numer - 1 + numsgreater;
+	numers[2] = numer - 0 + numsgreater;
+	document.getElementById("bigtxt").innerHTML = "Sqrt of "+rand;
+	document.getElementById("moretxt").innerHTML = "click greatest fraction that doesn't exceed it<br>__________";
+	document.getElementById("uno").innerHTML = numers[0]+" / "+denom;
+	document.getElementById("dos").innerHTML = numers[1]+" / "+denom;
+	document.getElementById("tres").innerHTML = numers[2]+" / "+denom;
+	}
+</script>    
+  <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="mws.css">
+</head>
+<body onload="doit();">
+<div data-role="page" id="chapter1">
+  <header data-role="header">
+    <h1>Square Root Game</h1>
+ </header>
+ <div id="container"> 
+
+ <div id="flashlight">
+ <h1 id="bigtxt"> </h1>
+ <h3 id="moretxt"> </h3>
+ <h2><a id="uno" style="color: #000000" href="javascript:flip(0);">uno</a></h2>
+ <h2><a id="dos" style="color: #000000" href="javascript:flip(1);">dos</a></h2>
+ <h2><a id="tres" style="color: #000000" href="javascript:flip(2);">tres</a></h2>
+ <h1><a href="javascript:doit();">NEXT</a></h1>
+ </div> 
+ </div>
+      <footer data-role="footer" data-position="fixed">
+  <p>created by Morris Srinivasan</p>
+  </footer>
+</div>
+
+</body>
+</html>
